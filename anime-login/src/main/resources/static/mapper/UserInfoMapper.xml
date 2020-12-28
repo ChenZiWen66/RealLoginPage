@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.czw.animelogin.mapper.UserInfoMapper">
+    <insert id="insertUserInfo">
+        INSERT INTO
+                user_info(id, login_username, login_password, user_role)
+            VALUE
+                (#{id},#{login_username},#{login_password},#{user_role})
+    </insert>
+    <select id="getUserInfoByName" resultType="com.czw.animelogin.entity.UserInfoEntity">
+        SELECT
+               id
+             , login_username
+             , login_password
+             , user_role
+        FROM
+             user_info
+        WHERE
+             login_username = #{userName}
+    </select>
+</mapper>
