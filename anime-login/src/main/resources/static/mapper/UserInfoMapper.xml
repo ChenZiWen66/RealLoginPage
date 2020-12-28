@@ -3,9 +3,9 @@
 <mapper namespace="com.czw.animelogin.mapper.UserInfoMapper">
     <insert id="insertUserInfo">
         INSERT INTO
-                user_info(id, login_username, login_password, user_role)
+                user_info(login_username, login_password, user_role)
             VALUE
-                (#{id},#{login_username},#{login_password},#{user_role})
+                (#{login_username},#{login_password},#{user_role})
     </insert>
     <select id="getUserInfoByName" resultType="com.czw.animelogin.entity.UserInfoEntity">
         SELECT
