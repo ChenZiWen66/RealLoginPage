@@ -6,13 +6,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserDetailService implements UserDetailsService {
@@ -26,8 +30,12 @@ public class UserDetailService implements UserDetailsService {
         //获取查询数据表获取用户信息
         List<UserInfoEntity> userInfoByNameList = userInfoMapper.getUserInfoByName(username);
         UserInfoEntity userInfoEntity = userInfoByNameList.get(0);
+
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userInfoEntity.getUser_role());
+        Set<SimpleGrantedAuthority> simpleGrantedAuthorities = new HashSet<>();
+        simpleGrantedAuthorities.add(simpleGrantedAuthority);
+
         return new User(username,
-                        userInfoEntity.getLogin_password(),
-                        AuthorityUtils.commaSeparatedStringToAuthorityList(userInfoEntity.getUser_role()));
+                userInfoEntity.getLogin_password(),simpleGrantedAuthorities);
     }
 }
