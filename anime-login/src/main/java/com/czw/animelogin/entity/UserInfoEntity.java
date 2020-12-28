@@ -2,7 +2,7 @@ package com.czw.animelogin.entity;
 
 public class UserInfoEntity {
     private int id;
-    private String login;
+    private String login_username;
     private String login_password;
     private String user_role;
 
@@ -14,12 +14,12 @@ public class UserInfoEntity {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getLogin_username() {
+        return login_username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setLogin_username(String login_username) {
+        this.login_username = login_username;
     }
 
     public String getLogin_password() {
