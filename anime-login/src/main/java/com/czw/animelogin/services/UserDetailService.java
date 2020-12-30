@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.stereotype.Service;
+import sun.nio.cs.US_ASCII;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,10 +34,12 @@ public class UserDetailService implements UserDetailsService {
         List<UserInfoEntity> userInfoByNameList = userInfoMapper.getUserInfoByName(username);
         Set<SimpleGrantedAuthority> simpleGrantedAuthorities = new HashSet<>();
         if (userInfoByNameList.size() != 0) {
-            UserInfoEntity userInfoEntity = userInfoByNameList.get(0);
-            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userInfoEntity.getUser_role());
-            simpleGrantedAuthorities.add(simpleGrantedAuthority);
-            return new User(username, userInfoEntity.getLogin_password(), simpleGrantedAuthorities);
+            String password = userInfoByNameList.get(0).getLogin_password();
+            for (UserInfoEntity userInfoEntity : userInfoByNameList) {
+                SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userInfoEntity.getUser_role());
+                simpleGrantedAuthorities.add(simpleGrantedAuthority);
+            }
+            return new User(username, password, simpleGrantedAuthorities);
         } else {
             throw new UsernameNotFoundException(username);
         }

@@ -13,6 +13,7 @@ import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,7 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         logService.insertLog(authentication.getName(), "登陆成功");
+        LOG.info("登陆成功了");
         SavedRequest savedRequest = requestCache.getRequest(request, response);
         redirectStrategy.sendRedirect(request, response, savedRequest.getRedirectUrl());
     }
