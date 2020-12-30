@@ -25,6 +25,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                     .loginPage("/demo/TestLogin.html").and()
                 .authorizeRequests()
                     .antMatchers("/demo/TestLogin.html","/demo/RegisterPage.html", "/login/register").permitAll()
+                    .antMatchers("/test/adminLogin").hasAuthority("Admin")
                     .anyRequest().authenticated().and()
                 .csrf().disable();
     }
