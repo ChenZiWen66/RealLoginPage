@@ -1,5 +1,6 @@
 package com.czw.animelogin.config;
 
+import com.czw.animelogin.handler.MyAccessDeniedHandler;
 import com.czw.animelogin.services.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfigure extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailService userDetailService;
+    @Autowired
+    MyAccessDeniedHandler myAccessDeniedHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -22,11 +25,16 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
 //                    .loginPage("/Login.html")
 //                    .loginPage("/demo/login.html")
                     .loginProcessingUrl("/login")
-                    .loginPage("/demo/TestLogin.html").and()
+                    .loginPage("/demo/TestLogin.html")
+                    .and()
                 .authorizeRequests()
                     .antMatchers("/demo/TestLogin.html","/demo/RegisterPage.html", "/login/register").permitAll()
                     .antMatchers("/test/adminLogin").hasAuthority("Admin")
                     .anyRequest().authenticated().and()
+                .exceptionHandling()
+                    .accessDeniedHandler(myAccessDeniedHandler)
+//                    .accessDeniedPage("/demo/AccessDeniedPage.html")
+                .and()
                 .csrf().disable();
     }
 
