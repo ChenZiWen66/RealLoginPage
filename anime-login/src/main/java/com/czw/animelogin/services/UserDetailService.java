@@ -27,17 +27,20 @@ public class UserDetailService implements UserDetailsService {
     UserInfoMapper userInfoMapper;
 
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //获取查询数据表获取用户信息
         List<UserInfoEntity> userInfoByNameList = userInfoMapper.getUserInfoByName(username);
-        UserInfoEntity userInfoEntity = userInfoByNameList.get(0);
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userInfoEntity.getUser_role());
         Set<SimpleGrantedAuthority> simpleGrantedAuthorities = new HashSet<>();
-        simpleGrantedAuthorities.add(simpleGrantedAuthority);
+        if (userInfoByNameList.size() != 0) {
+            UserInfoEntity userInfoEntity = userInfoByNameList.get(0);
+            SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userInfoEntity.getUser_role());
+            simpleGrantedAuthorities.add(simpleGrantedAuthority);
+            return new User(username, userInfoEntity.getLogin_password(), simpleGrantedAuthorities);
+        } else {
+            throw new UsernameNotFoundException(username);
+        }
 
-        return new User(username,
-                userInfoEntity.getLogin_password(),simpleGrantedAuthorities);
+
     }
 }
