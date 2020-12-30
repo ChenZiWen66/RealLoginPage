@@ -24,7 +24,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/login")
                     .loginPage("/demo/TestLogin.html").and()
                 .authorizeRequests()
-                    .antMatchers("/demo/TestLogin.html", "/login/register").permitAll()
+                    .antMatchers("/demo/TestLogin.html","/demo/RegisterPage.html", "/login/register").permitAll()
                     .anyRequest().authenticated().and()
                 .csrf().disable();
     }
