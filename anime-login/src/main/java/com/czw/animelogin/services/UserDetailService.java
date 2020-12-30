@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,12 +26,13 @@ public class UserDetailService implements UserDetailsService {
     @Autowired
     UserInfoMapper userInfoMapper;
 
+
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //获取查询数据表获取用户信息
         List<UserInfoEntity> userInfoByNameList = userInfoMapper.getUserInfoByName(username);
         UserInfoEntity userInfoEntity = userInfoByNameList.get(0);
-
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(userInfoEntity.getUser_role());
         Set<SimpleGrantedAuthority> simpleGrantedAuthorities = new HashSet<>();
         simpleGrantedAuthorities.add(simpleGrantedAuthority);

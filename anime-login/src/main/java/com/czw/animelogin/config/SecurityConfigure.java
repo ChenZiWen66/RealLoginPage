@@ -1,6 +1,8 @@
 package com.czw.animelogin.config;
 
 import com.czw.animelogin.handler.MyAccessDeniedHandler;
+import com.czw.animelogin.handler.MyAuthenticationFailureHandler;
+import com.czw.animelogin.handler.MyAuthenticationSuccessHandler;
 import com.czw.animelogin.services.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,15 +19,18 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
     UserDetailService userDetailService;
     @Autowired
     MyAccessDeniedHandler myAccessDeniedHandler;
-
+    @Autowired
+    MyAuthenticationFailureHandler myAuthenticationFailureHandler;
+    @Autowired
+    MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()
-//                    .loginPage("/Login.html")
-//                    .loginPage("/demo/login.html")
                     .loginProcessingUrl("/login")
                     .loginPage("/demo/TestLogin.html")
+                    .successHandler(myAuthenticationSuccessHandler)
+                    .failureHandler(myAuthenticationFailureHandler)
                     .and()
                 .authorizeRequests()
                     .antMatchers("/demo/TestLogin.html","/demo/RegisterPage.html", "/login/register").permitAll()
