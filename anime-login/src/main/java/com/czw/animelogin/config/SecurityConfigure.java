@@ -20,12 +20,12 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
         http
                 .formLogin()
 //                    .loginPage("/Login.html")
-//                    .loginPage("/Login.html")
-//                    .loginProcessingUrl("/login")
-                .and()
+//                    .loginPage("/demo/login.html")
+                    .loginProcessingUrl("/login")
+                    .loginPage("/demo/TestLogin.html").and()
                 .authorizeRequests()
-                .antMatchers("/Login.html", "/login/register").permitAll()
-                .anyRequest().authenticated().and()
+                    .antMatchers("/demo/TestLogin.html", "/login/register").permitAll()
+                    .anyRequest().authenticated().and()
                 .csrf().disable();
     }
 
