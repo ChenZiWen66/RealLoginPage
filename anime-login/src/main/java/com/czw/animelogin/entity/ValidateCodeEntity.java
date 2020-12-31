@@ -52,4 +52,8 @@ public class ValidateCodeEntity {
     public void setExpireTime(LocalDateTime expireTime) {
         this.expireTime = expireTime;
     }
+
+    public boolean isExpire(){
+        return LocalDateTime.now().isAfter(expireTime);
+    }
 }

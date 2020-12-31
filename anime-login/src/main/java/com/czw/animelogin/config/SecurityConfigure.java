@@ -1,5 +1,6 @@
 package com.czw.animelogin.config;
 
+import com.czw.animelogin.filter.ValidateCodeFilter;
 import com.czw.animelogin.handler.MyAccessDeniedHandler;
 import com.czw.animelogin.handler.MyAuthenticationFailureHandler;
 import com.czw.animelogin.handler.MyAuthenticationSuccessHandler;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfigure extends WebSecurityConfigurerAdapter {
@@ -23,9 +25,11 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
     MyAuthenticationFailureHandler myAuthenticationFailureHandler;
     @Autowired
     MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+    @Autowired
+    ValidateCodeFilter validateCodeFilter;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
                     .loginProcessingUrl("/login")
                     .loginPage("/demo/TestLogin.html")
