@@ -33,7 +33,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                     .failureHandler(myAuthenticationFailureHandler)
                     .and()
                 .authorizeRequests()
-                    .antMatchers("/demo/TestLogin.html","/demo/RegisterPage.html", "/login/register").permitAll()
+                    .antMatchers("/demo/TestLogin.html","/demo/RegisterPage.html", "/login/register","/getValidateCode").permitAll()
                     .antMatchers("/test/adminLogin").hasAuthority("Admin")
                     .anyRequest().authenticated().and()
                 .exceptionHandling()
