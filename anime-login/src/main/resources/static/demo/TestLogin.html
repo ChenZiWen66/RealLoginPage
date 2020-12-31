@@ -20,13 +20,17 @@
     <label>
       <input type="text" name="validateCode" placeholder="验证码">
     </label>
-    <img src="/getValidateCode" alt="获取的验证码">
+    <img src="/getValidateCode" alt="获取的验证码" onclick="this.src='/getValidateCode'">
   </div>
   <div>
     <button type="submit">登录</button>
     <a href="RegisterPage.html"> 注册一个账号 </a>
   </div>
-
 </form>
 </body>
+<script>
+  function changeValidateCode() {
+    ajax
+  }
+</script>
 </html>

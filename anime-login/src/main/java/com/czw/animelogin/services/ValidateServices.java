@@ -27,7 +27,6 @@ public class ValidateServices {
     private int expireIn;//验证码有效时间
 
     public ValidateCodeEntity createValidateCode() {
-        LOG.info("开始创建一个验证码");
         //创建一个画板
         BufferedImage image = new BufferedImage(this.width, this.height, BufferedImage.TYPE_INT_RGB);
         Graphics graphics = image.getGraphics();
