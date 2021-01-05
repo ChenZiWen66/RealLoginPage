@@ -1,6 +1,9 @@
 package com.czw.animelogin.entity;
 
-public class UserInfoEntity {
+import java.io.Serializable;
+
+public class UserInfoEntity implements Serializable {
+    private static final long serialVersionUID = -5380775358768726556L;
     private int id;
     private String login_username;
     private String login_password;

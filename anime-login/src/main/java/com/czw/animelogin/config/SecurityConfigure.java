@@ -37,7 +37,7 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                     .failureHandler(myAuthenticationFailureHandler)
                     .and()
                 .authorizeRequests()
-                    .antMatchers("/demo/TestLogin.html","/demo/RegisterPage.html", "/login/register","/getValidateCode").permitAll()
+                    .antMatchers("/demo/TestLogin.html","/demo/RegisterPage.html", "/login/register","/getValidateCode","/live2d/**").permitAll()
                     .antMatchers("/test/adminLogin").hasAuthority("Admin")
                     .anyRequest().authenticated().and()
                 .exceptionHandling()
