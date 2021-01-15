@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("com.czw.animelogin.mapper")
+@MapperScan("com.czw.animelogin.login.mapper")
 public class AnimeLoginApplication {
     private static final Logger LOG = LoggerFactory.getLogger(AnimeLoginApplication.class);
     public static void main(String[] args) {
