@@ -1,12 +1,22 @@
 package com.czw.animelogin.login.entity;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import org.springframework.stereotype.Repository;
+
 import java.io.Serializable;
 
+@ApiModel(value = "UserInfoEntity ", description = "用户对象")
+@Repository
 public class UserInfoEntity implements Serializable {
     private static final long serialVersionUID = -5380775358768726556L;
+    @ApiModelProperty(value = "主键", hidden = true)
     private int id;
+    @ApiModelProperty(value = "登陆用户名", hidden = false)
     private String login_username;
+    @ApiModelProperty(value = "登陆密码", hidden = false)
     private String login_password;
+    @ApiModelProperty(value = "用户权限(角色)", hidden = false)
     private String user_role;
 
     public int getId() {

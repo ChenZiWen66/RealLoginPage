@@ -37,7 +37,17 @@ public class SecurityConfigure extends WebSecurityConfigurerAdapter {
                     .failureHandler(myAuthenticationFailureHandler)
                     .and()
                 .authorizeRequests()
-                    .antMatchers("/demo/TestLogin.html","/demo/RegisterPage.html", "/login/register","/getValidateCode","/live2d/**").permitAll()
+                    .antMatchers("/demo/TestLogin.html",
+                            "/demo/RegisterPage.html",
+                            "/login/register",
+                            "/getValidateCode",
+                            "/live2d/**",
+                            "/doc.html",//swagger入口
+                            "/v2/api-docs",//swagger api json
+                            "/swagger-resources/configuration/ui",//用来获取支持的动作
+                            "/swagger-resources",//用来获取api-docs的URI
+                            "/swagger-resources/configuration/security",//安全选项
+                            "/webjars/**").permitAll()
                     .antMatchers("/test/adminLogin").hasAuthority("Admin")
                     .anyRequest().authenticated().and()
                 .exceptionHandling()
